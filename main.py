@@ -11,13 +11,16 @@ def main():
     scene = Scene.Scene()
     while True:
         scene.update()
-        scene.player.update()
+        if scene.status == 'start':
+            scene.player.update()
+        if scene.status == 'stop':
+            scene.startButton.update()
         pygame.display.flip()
-        key_control(scene.player)
+        key_control(scene)
         time.sleep(0.02)
 
 
-def key_control(player):
+def key_control(scene):
     global clock
     # 获取事件，比如按键等
     for event in pygame.event.get():
@@ -28,17 +31,21 @@ def key_control(player):
         # 判断是否是按下了键
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_a or event.key == pygame.K_LEFT:
-                player.move_left()
+                scene.player.move_left()
             elif event.key == pygame.K_d or event.key == pygame.K_RIGHT:
-                player.move_right()
+                scene.player.move_right()
             elif event.key == pygame.K_w or event.key == pygame.K_UP:
-                player.move_up()
+                scene.player.move_up()
             elif event.key == pygame.K_s or event.key == pygame.K_DOWN:
-                player.move_down()
+                scene.player.move_down()
             elif event.key == pygame.K_SPACE:
                 if time.time() - clock > 0.5:
-                    player.fire()
+                    scene.player.fire()
                     clock = time.time()
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            x, y = event.pos
+            if (174 <= x <= 306) and (600 <= y <= 648):
+                scene.start()
 
 
 main()

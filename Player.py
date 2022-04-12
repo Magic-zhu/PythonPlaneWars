@@ -4,6 +4,7 @@ import Bullet
 
 class Player(object):
     bullets = []
+    hp = 1
 
     def __init__(self, screen_temp):
         self.x = 210
