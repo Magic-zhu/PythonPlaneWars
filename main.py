@@ -15,6 +15,9 @@ def main():
             scene.player.update()
         if scene.status == 'stop':
             scene.startButton.update()
+            scene.quitButton.update()
+            scene.logo.update()
+            scene.loading.update()
         pygame.display.flip()
         key_control(scene)
         time.sleep(0.02)
@@ -44,7 +47,11 @@ def key_control(scene):
                     clock = time.time()
         elif event.type == pygame.MOUSEBUTTONDOWN:
             x, y = event.pos
+            # 开始游戏
             if (174 <= x <= 306) and (600 <= y <= 648):
+                exit()
+            # 退出游戏
+            if (174 <= x <= 306) and (520 <= y <= (520 + 148)):
                 scene.start()
 
 
